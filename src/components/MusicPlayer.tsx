@@ -1,40 +1,63 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Music, Volume2, VolumeX } from "lucide-react";
+import { Volume2, VolumeX } from "lucide-react";
+// Importa tu nuevo archivo de audio. Asegúrate de que el archivo 'por-siempre.mp3' esté en la carpeta 'src/assets'
+import weddingMusic from "@/assets/por-siempre.mp3"; 
 
 const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
-  const [hasInteracted, setHasInteracted] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  // Auto-play after first user interaction
   useEffect(() => {
-    const handleFirstInteraction = () => {
-      if (!hasInteracted) {
-        setHasInteracted(true);
-        setIsPlaying(true);
+    // Función para intentar reproducir
+    const playMusic = async () => {
+      if (audioRef.current) {
+        try {
+          // Intenta reproducir inmediatamente
+          await audioRef.current.play();
+          setIsPlaying(true);
+        } catch (err) {
+          // Si es bloqueado, se mantiene en estado pausado y espera interacción
+          console.log("Autoplay blocked by browser, waiting for user interaction. Click anywhere to start music.");
+          setIsPlaying(false);
+        }
       }
     };
 
-    document.addEventListener("click", handleFirstInteraction, { once: true });
-    return () => document.removeEventListener("click", handleFirstInteraction);
-  }, [hasInteracted]);
+    // 1. Intento inicial al cargar
+    playMusic();
 
-  useEffect(() => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.play().catch(() => {
-          setIsPlaying(false);
-        });
-      } else {
-        audioRef.current.pause();
-      }
-    }
-  }, [isPlaying]);
+    // 2. Listener para activar el audio con la primera interacción del usuario
+    const handleInteraction = () => {
+      playMusic();
+      // Una vez activado, limpiamos los listeners para que no se ejecuten más
+      document.removeEventListener("click", handleInteraction);
+      document.removeEventListener("touchstart", handleInteraction);
+      document.removeEventListener("keydown", handleInteraction);
+    };
+
+    document.addEventListener("click", handleInteraction);
+    document.addEventListener("touchstart", handleInteraction);
+    document.addEventListener("keydown", handleInteraction);
+
+    // Limpieza de listeners
+    return () => {
+      document.removeEventListener("click", handleInteraction);
+      document.removeEventListener("touchstart", handleInteraction);
+      document.removeEventListener("keydown", handleInteraction);
+    };
+  }, []);
 
   const togglePlay = () => {
-    setIsPlaying(!isPlaying);
-    setHasInteracted(true);
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        // Intenta reproducir si no está sonando
+        audioRef.current.play().catch((e) => console.error("Error al reproducir:", e));
+      }
+      setIsPlaying(!isPlaying);
+    }
   };
 
   return (
@@ -42,18 +65,18 @@ const MusicPlayer = () => {
       <Button
         onClick={togglePlay}
         size="lg"
-        className="rounded-full w-16 h-16 shadow-2xl bg-wedding-gold hover:bg-wedding-gold/90 text-white"
+        className="rounded-full w-16 h-16 shadow-2xl bg-wedding-gold hover:bg-wedding-gold/90 text-white animate-pulse hover:animate-none transition-all"
       >
         {isPlaying ? (
-          <Volume2 className="w-6 h-6" />
+          <Volume2 className="w-8 h-8" />
         ) : (
-          <VolumeX className="w-6 h-6" />
+          <VolumeX className="w-8 h-8" />
         )}
       </Button>
       <audio
         ref={audioRef}
         loop
-        src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3"
+        src={weddingMusic} // Usa el asset importado
       />
     </div>
   );
