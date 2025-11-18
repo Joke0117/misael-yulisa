@@ -53,7 +53,7 @@ const MusicPlayer = () => {
       <audio
         ref={audioRef}
         loop
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+        src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3"
       />
     </div>
   );
