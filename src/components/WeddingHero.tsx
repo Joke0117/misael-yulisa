@@ -42,7 +42,7 @@ const WeddingHero = () => {
         {/* Bible verse preview */}
         <div className="max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: "0.8s" }}>
           <p className="text-lg md:text-xl text-wedding-deep italic">
-            "Dios ha llenado nuestros corazones con su inmenso amor..."
+            "Y nosotros hemos conocido y creído el amor que Dios tiene para con nosotros. Dios es amor, y el que permanece en amor permanece en Dios y Dios en él.(1 Juan 4:16)"
           </p>
         </div>
 
