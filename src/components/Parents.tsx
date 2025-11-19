@@ -3,8 +3,8 @@ import { Heart, Users } from "lucide-react";
 
 const Parents = () => {
   return (
-    <section className="py-20 wedding-gradient">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-background">
+      <div className="container mx-auto px-4 animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
         <div className="max-w-4xl mx-auto text-center mb-12">
           <Heart className="w-12 h-12 mx-auto mb-6 text-wedding-gold" />
           <h2 className="text-3xl md:text-4xl font-bold text-wedding-deep mb-6">

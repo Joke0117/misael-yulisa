@@ -1,10 +1,13 @@
 import { MapPin, Church, Clock } from "lucide-react";
 import { Card } from "@/components/ui/card";
+// Se eliminó la importación de LateralFlower
 
 const CeremonyDetails = () => {
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+    // Aseguramos el color de fondo consistente
+    <section className="py-20 bg-background relative overflow-hidden">
+      {/* Se eliminó la etiqueta <LateralFlower /> */}
+      <div className="container mx-auto px-4 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
         <h2 className="text-4xl md:text-5xl font-bold text-center text-wedding-deep mb-16">
           Detalles de la Ceremonia
         </h2>

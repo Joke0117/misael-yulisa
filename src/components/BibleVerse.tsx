@@ -3,8 +3,8 @@ import { BookOpen } from "lucide-react";
 
 const BibleVerse = () => {
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="py-20 bg-background">
+      <div className="container mx-auto px-4 animate-fade-in-up" style={{ animationDelay: '1.0s' }}>
         <Card className="max-w-4xl mx-auto p-12 border-wedding-gold bg-gradient-to-br from-wedding-light to-white shadow-2xl">
           <BookOpen className="w-12 h-12 mx-auto mb-6 text-wedding-gold" />
           <div className="text-center">

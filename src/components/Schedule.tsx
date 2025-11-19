@@ -24,7 +24,7 @@ const Schedule = () => {
   ];
 
   return (
-    <section className="py-20 wedding-gradient">
+    <section className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <h2 className="text-4xl md:text-5xl font-bold text-center text-wedding-deep mb-4">
           Itinerario

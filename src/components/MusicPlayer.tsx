@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Volume2, VolumeX } from "lucide-react";
-// Importa tu nuevo archivo de audio. Asegúrate de que el archivo 'por-siempre.mp3' esté en la carpeta 'src/assets'
+// Importa tu archivo de audio. Asegúrate de que el archivo 'por-siempre.mp3' esté en la carpeta 'src/assets'
 import weddingMusic from "@/assets/por-siempre.mp3"; 
 
 const MusicPlayer = () => {
@@ -9,38 +9,42 @@ const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    // Función para intentar reproducir
+    // Función central para intentar reproducir la música
     const playMusic = async () => {
       if (audioRef.current) {
+        // Reinicia el elemento de audio para asegurar que está listo al recargar
+        audioRef.current.load(); 
+        
         try {
-          // Intenta reproducir inmediatamente
+          // 1. Intenta reproducir inmediatamente (Autoplay). Fallará en la mayoría de navegadores.
           await audioRef.current.play();
           setIsPlaying(true);
         } catch (err) {
-          // Si es bloqueado, se mantiene en estado pausado y espera interacción
-          console.log("Autoplay blocked by browser, waiting for user interaction. Click anywhere to start music.");
+          // 2. Si es bloqueado, establece el estado en pausa y espera interacción.
+          console.log("Autoplay bloqueado. La música se iniciará con el primer clic en la página.");
           setIsPlaying(false);
         }
       }
     };
 
-    // 1. Intento inicial al cargar
-    playMusic();
-
-    // 2. Listener para activar el audio con la primera interacción del usuario
+    // Función que se ejecuta con la primera interacción del usuario
     const handleInteraction = () => {
-      playMusic();
-      // Una vez activado, limpiamos los listeners para que no se ejecuten más
+      playMusic(); // Vuelve a intentar la reproducción
+      // Una vez que la música comienza (o lo intenta), eliminamos el listener.
       document.removeEventListener("click", handleInteraction);
       document.removeEventListener("touchstart", handleInteraction);
       document.removeEventListener("keydown", handleInteraction);
     };
 
+    // Intentamos reproducir al montar el componente (en cada recarga)
+    playMusic();
+
+    // Se configuran los listeners para detectar la primera interacción del usuario en la página.
     document.addEventListener("click", handleInteraction);
     document.addEventListener("touchstart", handleInteraction);
     document.addEventListener("keydown", handleInteraction);
 
-    // Limpieza de listeners
+    // Función de limpieza para desmontar el componente
     return () => {
       document.removeEventListener("click", handleInteraction);
       document.removeEventListener("touchstart", handleInteraction);
@@ -53,7 +57,7 @@ const MusicPlayer = () => {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        // Intenta reproducir si no está sonando
+        // Reproducir (este intento siempre funciona porque es un clic directo del botón)
         audioRef.current.play().catch((e) => console.error("Error al reproducir:", e));
       }
       setIsPlaying(!isPlaying);
@@ -65,7 +69,10 @@ const MusicPlayer = () => {
       <Button
         onClick={togglePlay}
         size="lg"
-        className="rounded-full w-16 h-16 shadow-2xl bg-wedding-gold hover:bg-wedding-gold/90 text-white animate-pulse hover:animate-none transition-all"
+        // Mostramos el efecto 'pulse' si no está sonando para animar al usuario a hacer clic
+        className={`rounded-full w-16 h-16 shadow-2xl bg-wedding-gold hover:bg-wedding-gold/90 text-white transition-all ${
+          !isPlaying ? 'animate-pulse hover:animate-none' : ''
+        }`}
       >
         {isPlaying ? (
           <Volume2 className="w-8 h-8" />
@@ -76,7 +83,7 @@ const MusicPlayer = () => {
       <audio
         ref={audioRef}
         loop
-        src={weddingMusic} // Usa el asset importado
+        src={weddingMusic} 
       />
     </div>
   );
