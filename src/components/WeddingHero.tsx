@@ -3,7 +3,7 @@ import heroBackground from "@/assets/hero-background.png";
 
 const WeddingHero = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden z-20">
       
       {/* Fondo de Imagen HD con Capa Oscura (z-0) */}
       <div 
@@ -12,22 +12,22 @@ const WeddingHero = () => {
           backgroundImage: `url(${heroBackground})`,
         }}
       >
-        {/* Capa de Oscurecimiento (40% de negro) para asegurar que el texto blanco resalte */}
+        {/* Capa de Oscurecimiento (40%) */}
         <div className="absolute inset-0 bg-black/40" /> 
       </div>
       
-      {/* MODIFICADO: Capa de Difuminado (Fade-Out) - Aumentada la altura para una transición más suave */}
+      {/* CAPA DE DIFUMINADO INFERIOR */}
       <div 
-        className="absolute bottom-0 left-0 right-0 h-64 z-5" // Altura aumentada a h-64
+        className="absolute bottom-0 left-0 right-0 h-64 md:h-80 z-5 pointer-events-none"
         style={{
-          background: 'linear-gradient(to top, hsl(var(--background)) 0%, transparent 100%)',
+          background: 'linear-gradient(to top, hsl(var(--background)) 15%, transparent 100%)',
         }}
       />
       
       {/* Contenido (z-10) */}
       <div className="container mx-auto px-4 text-center z-10 text-white">
         
-        {/* Names (Texto principal se mantiene en blanco/dorado) */}
+        {/* Names */}
         <div className="animate-fade-in-up" style={{ animationDelay: "0.2s" }}>
           <Heart className="w-12 h-12 mx-auto mb-6 text-wedding-gold fill-wedding-gold" />
           <h1 className="text-6xl md:text-8xl font-bold mb-4 text-white drop-shadow-lg">
@@ -62,12 +62,8 @@ const WeddingHero = () => {
           </p>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-            <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse" />
-          </div>
-        </div>
+        {/* SE ELIMINÓ EL SCROLL INDICATOR AQUÍ */}
+
       </div>
     </section>
   );

@@ -13,7 +13,7 @@ const BibleVerse = () => {
             </p>
             <div className="w-20 h-0.5 bg-wedding-gold mx-auto my-6" />
             <p className="text-xl md:text-2xl text-wedding-medium leading-relaxed">
-              Nos gustaría contar con tu presencia y tu apoyo al comenzar esta gran aventura juntos.
+              Nos gustaría contar con tu presencia y tu apoyo al comenzar esta gran etapa juntos.
             </p>
           </div>
         </Card>

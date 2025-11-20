@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Volume2, VolumeX } from "lucide-react";
-// Importa tu archivo de audio. Asegúrate de que el archivo 'por-siempre.mp3' esté en la carpeta 'src/assets'
+import { Play, Pause } from "lucide-react";
 import weddingMusic from "@/assets/por-siempre.mp3"; 
 
 const MusicPlayer = () => {
@@ -9,42 +7,32 @@ const MusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
-    // Función central para intentar reproducir la música
     const playMusic = async () => {
       if (audioRef.current) {
-        // Reinicia el elemento de audio para asegurar que está listo al recargar
         audioRef.current.load(); 
-        
         try {
-          // 1. Intenta reproducir inmediatamente (Autoplay). Fallará en la mayoría de navegadores.
           await audioRef.current.play();
           setIsPlaying(true);
         } catch (err) {
-          // 2. Si es bloqueado, establece el estado en pausa y espera interacción.
-          console.log("Autoplay bloqueado. La música se iniciará con el primer clic en la página.");
+          console.log("Autoplay bloqueado. Esperando interacción.");
           setIsPlaying(false);
         }
       }
     };
 
-    // Función que se ejecuta con la primera interacción del usuario
     const handleInteraction = () => {
-      playMusic(); // Vuelve a intentar la reproducción
-      // Una vez que la música comienza (o lo intenta), eliminamos el listener.
+      playMusic();
       document.removeEventListener("click", handleInteraction);
       document.removeEventListener("touchstart", handleInteraction);
       document.removeEventListener("keydown", handleInteraction);
     };
 
-    // Intentamos reproducir al montar el componente (en cada recarga)
     playMusic();
 
-    // Se configuran los listeners para detectar la primera interacción del usuario en la página.
     document.addEventListener("click", handleInteraction);
     document.addEventListener("touchstart", handleInteraction);
     document.addEventListener("keydown", handleInteraction);
 
-    // Función de limpieza para desmontar el componente
     return () => {
       document.removeEventListener("click", handleInteraction);
       document.removeEventListener("touchstart", handleInteraction);
@@ -57,34 +45,34 @@ const MusicPlayer = () => {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        // Reproducir (este intento siempre funciona porque es un clic directo del botón)
-        audioRef.current.play().catch((e) => console.error("Error al reproducir:", e));
+        audioRef.current.play().catch((e) => console.error("Error:", e));
       }
       setIsPlaying(!isPlaying);
     }
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <Button
+    // Posicionado absolutamente para quedar centrado en la parte superior de su contenedor
+    <div className="absolute z-50 top-[2%] md:top-[5%] left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-fade-in">
+      
+      {/* Texto "Toca aquí" */}
+      <span className="text-[9px] md:text-xs uppercase tracking-widest text-[#C49B74] mb-2 font-bold animate-pulse drop-shadow-sm bg-white/80 px-3 py-1 rounded-full border border-[#C49B74]/20">
+        Toca aquí
+      </span>
+
+      {/* Botón de Reproducción */}
+      <button 
         onClick={togglePlay}
-        size="lg"
-        // Mostramos el efecto 'pulse' si no está sonando para animar al usuario a hacer clic
-        className={`rounded-full w-16 h-16 shadow-2xl bg-wedding-gold hover:bg-wedding-gold/90 text-white transition-all ${
-          !isPlaying ? 'animate-pulse hover:animate-none' : ''
-        }`}
+        className="bg-[#C49B74] hover:bg-[#a88b6d] text-white rounded-full p-3 md:p-4 shadow-xl transition-all transform hover:scale-110 flex items-center justify-center border-4 border-white/30"
       >
         {isPlaying ? (
-          <Volume2 className="w-8 h-8" />
+          <Pause className="w-4 h-4 md:w-6 md:h-6 fill-current" />
         ) : (
-          <VolumeX className="w-8 h-8" />
+          <Play className="w-4 h-4 md:w-6 md:h-6 fill-current ml-1" />
         )}
-      </Button>
-      <audio
-        ref={audioRef}
-        loop
-        src={weddingMusic} 
-      />
+      </button>
+
+      <audio ref={audioRef} src={weddingMusic} loop />
     </div>
   );
 };
