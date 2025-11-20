@@ -7,8 +7,7 @@ import Parents from "@/components/Parents";
 import BibleVerse from "@/components/BibleVerse";
 import Gifts from "@/components/Gifts";
 import OrnateSeparator from "@/components/OrnateSeparator"; 
-
-// ELIMINADO: import MusicPlayer ... (Ya está dentro de Countdown)
+import ScrollReveal from "@/components/ScrollReveal"; // Importamos el nuevo componente
 
 import { Instagram, Facebook, MessageCircle } from "lucide-react";
 
@@ -21,67 +20,81 @@ const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent
 
 const Index = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden">
       <WeddingHero />
       
-      {/* El MusicPlayer ahora vive dentro de Countdown, en la parte superior */}
-      <Countdown />
+      {/* Envolvemos cada sección para que aparezca al hacer scroll */}
+      
+      <ScrollReveal>
+        <Countdown />
+      </ScrollReveal>
       
       <OrnateSeparator /> 
 
-      <CeremonyDetails />
+      <ScrollReveal>
+        <CeremonyDetails />
+      </ScrollReveal>
       
       <OrnateSeparator /> 
 
-      <Schedule />
+      <ScrollReveal>
+        <Schedule />
+      </ScrollReveal>
       
       <OrnateSeparator /> 
 
-      <DressCode />
+      <ScrollReveal>
+        <DressCode />
+      </ScrollReveal>
       
       <OrnateSeparator /> 
 
-      <Parents />
+      <ScrollReveal>
+        <Parents />
+      </ScrollReveal>
       
       <OrnateSeparator /> 
 
-      <BibleVerse />
+      <ScrollReveal>
+        <BibleVerse />
+      </ScrollReveal>
       
       <OrnateSeparator /> 
 
-      <Gifts /> 
-      
-      {/* ELIMINADO: <MusicPlayer /> para evitar duplicados */}
+      <ScrollReveal>
+        <Gifts /> 
+      </ScrollReveal>
       
       {/* Footer */}
-      <footer className="py-8 bg-wedding-deep text-white text-center">
-        
-        <p className="text-sm opacity-80">
-          Desarrollado por
-        </p>
-        <p className="text-xl font-bold text-wedding-gold mb-4">
-          {DEVELOPER_NAME}
-        </p>
+      <ScrollReveal className="py-0">
+        <footer className="py-8 bg-wedding-deep text-white text-center">
+          <p className="text-sm opacity-80">
+            Desarrollado por
+          </p>
+          <p className="text-xl font-bold text-wedding-gold mb-4">
+            {DEVELOPER_NAME}
+          </p>
 
-        <div className="flex justify-center space-x-6 mb-4">
-          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-            <Instagram className="w-6 h-6 text-white hover:text-wedding-gold transition-colors" />
-          </a>
-          <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
-            <Facebook className="w-6 h-6 text-white hover:text-wedding-gold transition-colors" />
-          </a>
-          <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-            <MessageCircle className="w-6 h-6 text-white hover:text-wedding-gold transition-colors" />
-          </a>
-        </div>
+          <div className="flex justify-center space-x-6 mb-4">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <Instagram className="w-6 h-6 text-white hover:text-wedding-gold transition-colors" />
+            </a>
+            <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <Facebook className="w-6 h-6 text-white hover:text-wedding-gold transition-colors" />
+            </a>
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+              <MessageCircle className="w-6 h-6 text-white hover:text-wedding-gold transition-colors" />
+            </a>
+          </div>
 
-        <p className="text-lg mb-2">
-          Misael & Yulisa
-        </p>
-        <p className="text-sm opacity-80">
-          10 de Enero, 2026 • Providencia, Bolívar
-        </p>
-      </footer>
+          <p className="text-lg mb-2">
+            Misael & Yulisa
+          </p>
+          <p className="text-sm opacity-80">
+            10 de Enero, 2026 • Providencia, Bolívar
+          </p>
+        </footer>
+      </ScrollReveal>
     </div>
   );
 };

@@ -37,7 +37,8 @@ const Countdown = () => {
   }, []);
 
   return (
-    <section className="relative bg-background overflow-hidden min-h-[350px] flex flex-col items-center justify-center pt-0 pb-4 -mt-4">
+    // AGREGADO: 'animate-fade-in-up' al final de className para el efecto de entrada
+    <section className="relative bg-background overflow-hidden min-h-[350px] flex flex-col items-center justify-center pt-0 pb-4 -mt-4 animate-fade-in-up">
       
       {/* Difuminado superior */}
       <div 
@@ -56,10 +57,6 @@ const Countdown = () => {
         <div className="relative mt-8 md:mt-12 w-full flex justify-center items-center max-w-4xl mx-auto">
             
             {/* --- DECORACIÓN DE FONDO (lujo-frame.png) --- */}
-            {/* - z-0: Detrás de todo.
-               - w-[150%]: Más ancho que el contenedor para que las ondas se extiendan bien a los lados.
-               - opacity-90: Para que se vea claro pero no compita demasiado.
-            */}
             <img 
               src={lujoFrame}
               alt="Decoración de fondo"
@@ -67,7 +64,6 @@ const Countdown = () => {
             />
 
             {/* --- IMAGEN FLORAL --- */}
-            {/* z-10: Encima de la decoración de lujo */}
             <img 
               src={floralFrame} 
               alt="Decoración Floral"
@@ -75,7 +71,6 @@ const Countdown = () => {
             />
 
             {/* --- CONTADOR CIRCULAR --- */}
-            {/* z-20: Encima de todo */}
             <div className="absolute z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/95 backdrop-blur-sm rounded-full w-[220px] h-[220px] md:w-[360px] md:h-[360px] shadow-[0_0_30px_rgba(0,0,0,0.15)] flex flex-col items-center justify-center border-4 border-[#F2EDE8]">
               
               {/* Título */}

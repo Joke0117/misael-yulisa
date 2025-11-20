@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Shirt, Sparkles } from "lucide-react";
+import blueFlower from "../assets/blue-flower-accent.png";
 
 const DressCode = () => {
   return (
@@ -11,21 +12,29 @@ const DressCode = () => {
 
         <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 mb-12">
           {/* Women */}
-          <Card className="p-8 text-center hover:shadow-xl transition-all duration-300 border-wedding-medium bg-gradient-to-br from-white to-background">
-            <Sparkles className="w-12 h-12 mx-auto mb-4 text-wedding-gold" />
-            <h3 className="text-3xl font-bold text-wedding-deep mb-4">Ellas</h3>
-            <p className="text-2xl text-wedding-medium font-semibold">
-              Divinas
-            </p>
+          <Card className="relative overflow-hidden p-8 text-center hover:shadow-xl transition-all duration-300 border-wedding-medium bg-gradient-to-br from-white to-background">
+            <img src={blueFlower} alt="Decoración" className="absolute inset-0 w-full h-full object-cover opacity-15 pointer-events-none" />
+            
+            <div className="relative z-10">
+              <Sparkles className="w-12 h-12 mx-auto mb-4 text-wedding-gold" />
+              <h3 className="text-3xl font-bold text-wedding-deep mb-4">Ellas</h3>
+              <p className="text-2xl text-wedding-medium font-semibold">
+                Divinas
+              </p>
+            </div>
           </Card>
 
           {/* Men */}
-          <Card className="p-8 text-center hover:shadow-xl transition-all duration-300 border-wedding-medium bg-gradient-to-br from-white to-background">
-            <Shirt className="w-12 h-12 mx-auto mb-4 text-wedding-gold" />
-            <h3 className="text-3xl font-bold text-wedding-deep mb-4">Ellos</h3>
-            <p className="text-2xl text-wedding-medium font-semibold">
-              Guapos
-            </p>
+          <Card className="relative overflow-hidden p-8 text-center hover:shadow-xl transition-all duration-300 border-wedding-medium bg-gradient-to-br from-white to-background">
+             <img src={blueFlower} alt="Decoración" className="absolute inset-0 w-full h-full object-cover opacity-15 pointer-events-none" />
+            
+            <div className="relative z-10">
+              <Shirt className="w-12 h-12 mx-auto mb-4 text-wedding-gold" />
+              <h3 className="text-3xl font-bold text-wedding-deep mb-4">Ellos</h3>
+              <p className="text-2xl text-wedding-medium font-semibold">
+                Guapos
+              </p>
+            </div>
           </Card>
         </div>
       </div>
